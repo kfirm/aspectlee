@@ -3,13 +3,16 @@ import {Interceptor} from "./interceptor.js";
 
 export class Aspectlee {
 
-    constructor(obj, reportFunc) {
+    constructor(obj, printCallback) {
 
         const props = Object.getPrototypeOf(obj);
 
         Object.getOwnPropertyNames(props).forEach( (funcKey) => {
-            const funcInterseptor = new Interceptor(obj[funcKey],funcKey);
-            obj[funcKey] = funcInterseptor.getInterceptor();
+
+            if (typeof obj[funcKey] === 'function'){
+                const funcInterseptor = new Interceptor(obj[funcKey], funcKey, printCallback);
+                obj[funcKey] = funcInterseptor.getInterceptor();
+            }
         });
 
     }
