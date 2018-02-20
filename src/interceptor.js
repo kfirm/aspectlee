@@ -1,65 +1,70 @@
 import {FuncDescription} from "./func.description.js";
 
-export class Interceptor {
+class Utils {
+    stringifyArgs (args) {
 
-    private stringifyArgs (args) {
+        let stringifiedArgs = [];
+
         for (let i = 0; i < args.length; i++){
+
+            stringifiedArgs.push(args[i]);
+
             switch (typeof args[i]){
                 case 'object':
-                    args[i] = JSON.stringify(args[i]);
+                    stringifiedArgs[i] = JSON.stringify(stringifiedArgs[i]);
                     break;
             }
         }
-    }
 
-    constructor(func, name) {
-        this.inspect = func;
+        return stringifiedArgs;
+    }
+}
+
+
+export class Interceptor {
+
+    constructor(func, name, printCallBack) {
+        this.interceptor = func;
         this.funcDescription = new FuncDescription(func, name);
-        this.setInterception();
-        this.setReportFunc(console.log);
+        this.setInterception();;
+
+        if (printCallBack){
+            this.printCallBack = printCallBack;
+        }
     }
 
     setInterception() {
 
-        this.originalFunc = this.inspect;
-        this.inspect = (...args) => {
+        this.originalFunc = this.interceptor;
+        this.interceptor = (...args) => {
 
             // For some reason the following returns an empty array
             // const args = Array.from(arguments);
             // const args2 = [...arguments];
-            this.before(args);
-            this.result = this.originalFunc.apply(this, args);
-            this.after();
+
+            const stringifiedArgs = new Utils().stringifyArgs(args);
+
+            this.funcDescription.setParams(stringifiedArgs);
+            this.printCallBack(this.funcDescription.toObj());
+            this.funcDescription.setResult(this.originalFunc.apply(this, args));
+            this.printCallBack(this.funcDescription.toObj());
         }
     }
 
-    getInterseption() {
-        return this.inspect;
-    }
-
-    setReportFunc (reportFunc){
-        this.reportFunc = reportFunc;
+    getInterceptor() {
+        return this.interceptor;
     }
 
 
-    before(args) {
-
-        const funcName = this.funcDescription.name;
-
-        args = this.stringifyArgs(args);
-
-        const message = `Executing ${funcName} with parameters: ${args}.`;
-
-        this.reportFunc(message);
-    }
-
-    after() {
-
-        const funcName = this.funcDescription.name;
-        const params = [];
-
-        const message = `Finished executing ${funcName} with parameters: ${params}. Result: ${this.result}`;
-
-        this.reportFunc(message);
+    printCallBack(funcDescription) {
+        switch (funcDescription.state){
+            case FuncDescription.STATES().BEFORE:
+                console.log(`Executing function '${funcDescription.name}' with parameters: ${funcDescription.params}.`);
+                break;
+            case FuncDescription.STATES().AFTER:
+                const result = funcDescription.result;
+                console.log(`Finished executing '${funcDescription.name}' with parameters: ${funcDescription.params}. Result: ${typeof result === 'object' ? JSON.stringify(result) : result}`);
+                break;
+        }
     }
 }

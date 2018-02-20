@@ -9,7 +9,7 @@ export class Aspectlee {
 
         Object.getOwnPropertyNames(props).forEach( (funcKey) => {
             const funcInterseptor = new Interceptor(obj[funcKey],funcKey);
-            obj[funcKey] = funcInterseptor.getInterseption();
+            obj[funcKey] = funcInterseptor.getInterceptor();
         });
 
     }
