@@ -26,7 +26,7 @@ export class Interceptor {
     constructor(func, name, printCallBack) {
         this.interceptor = func;
         this.funcDescription = new FuncDescription(func, name);
-        this.setInterception();;
+        this.setInterception();
 
         if (printCallBack){
             this.printCallBack = printCallBack;

@@ -1,0 +1,34 @@
+{
+  "name": "aspectlee",
+  "version": "1.0.0",
+  "description": "Aspect Oriented Programming (AOP) for JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "mini": "gulp compress",
+    "start": "webpack --config webpack.config.js",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kfirm/aspectlee.git"
+  },
+  "keywords": [
+    "AOP",
+    "Aspect Oriented Programming",
+    "aspect"
+  ],
+  "author": "Kfir Marouani <dev.kfir@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kfirm/aspectlee/issues"
+  },
+  "homepage": "https://github.com/kfirm/aspectlee",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.4.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^3.0.0",
+    "webpack": "^3.11.0"
+  }
+}
