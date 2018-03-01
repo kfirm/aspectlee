@@ -1,4 +1,4 @@
-import {FuncDescription} from "./func.description.js";
+import Executor from "./executor.js";
 
 class Utils {
     stringifyArgs (args) {
@@ -21,21 +21,22 @@ class Utils {
 }
 
 
-export class Interceptor {
+export default class Interceptor {
 
-    constructor(func, name, printCallBack) {
-        this.interceptor = func;
-        this.funcDescription = new FuncDescription(func, name);
-        this.setInterception();
+    constructor(functionReference, functionName, printCallBack) {
+        // this.interceptor = functionReference;
+        this.execution = new Executor(functionReference, functionName);
+
+        this.setInterception(functionReference);
 
         if (printCallBack){
             this.printCallBack = printCallBack;
         }
     }
 
-    setInterception() {
+    setInterception(functionReference) {
 
-        this.originalFunc = this.interceptor;
+        // const functionReference = this.interceptor;
         this.interceptor = (...args) => {
 
             // For some reason the following returns an empty array
@@ -44,10 +45,10 @@ export class Interceptor {
 
             const stringifiedArgs = new Utils().stringifyArgs(args);
 
-            this.funcDescription.setParams(stringifiedArgs);
-            this.printCallBack(this.funcDescription.toObj());
-            this.funcDescription.setResult(this.originalFunc.apply(this, args));
-            this.printCallBack(this.funcDescription.toObj());
+            this.execution.setParams(stringifiedArgs);
+            this.printCallBack(this.execution.getContext());
+            this.execution.setResult(functionReference.apply(this, args));
+            this.printCallBack(this.execution.getContext());
         }
     }
 
@@ -58,10 +59,10 @@ export class Interceptor {
 
     printCallBack(funcDescription) {
         switch (funcDescription.state){
-            case FuncDescription.STATES().BEFORE:
+            case FunctionExecution.STATES().BEFORE:
                 console.log(`Executing function '${funcDescription.name}' with parameters: ${funcDescription.params}.`);
                 break;
-            case FuncDescription.STATES().AFTER:
+            case FunctionExecution.STATES().AFTER:
                 const result = funcDescription.result;
                 console.log(`Finished executing '${funcDescription.name}' with parameters: ${funcDescription.params}. Result: ${typeof result === 'object' ? JSON.stringify(result) : result}`);
                 break;

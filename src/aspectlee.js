@@ -1,7 +1,7 @@
-import {Interceptor} from "./interceptor.js";
+import Interceptor from "./interceptor.js";
 
 
-export class Aspectlee {
+export default class Aspectlee {
 
     constructor(obj, printCallback) {
 

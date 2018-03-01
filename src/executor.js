@@ -1,8 +1,8 @@
-export class FuncDescription {
+export default class Executor {
 
-    constructor(func, name) {
+    constructor(reference, name) {
         this.name = name;
-        this.asText = func.toString();
+        this.reference = reference;
 
         this.STATES = {
             BEFORE: 'BEFORE',
@@ -46,7 +46,7 @@ export class FuncDescription {
         this.state = state;
     }
 
-    toObj() {
+    getContext() {
         return {
             name: this.name,
             state: this.getState(),
@@ -60,6 +60,10 @@ export class FuncDescription {
             BEFORE: 'BEFORE',
             AFTER: 'AFTER'
         }
+    }
+
+    toString(){
+        this.reference.toString();
     }
 
 }
