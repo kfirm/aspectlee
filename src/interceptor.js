@@ -32,6 +32,9 @@ export default class Interceptor {
         if (printCallBack){
             this.printCallBack = printCallBack;
         }
+
+        this.before(this.printCallBack);
+        this.after(this.printCallBack);
     }
 
     setInterception(functionReference) {
@@ -46,10 +49,29 @@ export default class Interceptor {
             const stringifiedArgs = new Utils().stringifyArgs(args);
 
             this.execution.setParams(stringifiedArgs);
-            this.printCallBack(this.execution.getContext());
+            this.beforeCallback(this.execution.getContext());
             this.execution.setResult(functionReference.apply(this, args));
-            this.printCallBack(this.execution.getContext());
+            this.afterCallback(this.execution.getContext());
         }
+    }
+
+    before(beforeCallback){
+     if (beforeCallback && typeof beforeCallback === 'function'){
+         this.beforeCallback = beforeCallback;
+     }
+
+     return this;
+
+    }
+
+
+
+    after(afterCallback){
+        if (afterCallback  && typeof afterCallback === 'function'){
+            this.afterCallback = afterCallback;
+        }
+
+        return this;
     }
 
     getInterceptor() {
@@ -59,10 +81,10 @@ export default class Interceptor {
 
     printCallBack(funcDescription) {
         switch (funcDescription.state){
-            case FunctionExecution.STATES().BEFORE:
+            case Executor.STATES().BEFORE:
                 console.log(`Executing function '${funcDescription.name}' with parameters: ${funcDescription.params}.`);
                 break;
-            case FunctionExecution.STATES().AFTER:
+            case Executor.STATES().AFTER:
                 const result = funcDescription.result;
                 console.log(`Finished executing '${funcDescription.name}' with parameters: ${funcDescription.params}. Result: ${typeof result === 'object' ? JSON.stringify(result) : result}`);
                 break;

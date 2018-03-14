@@ -7,11 +7,11 @@ export default class Aspectlee {
 
         const props = Object.getPrototypeOf(obj);
 
-        Object.getOwnPropertyNames(props).forEach( (funcKey) => {
+        Object.getOwnPropertyNames(props).forEach( (funcName) => {
 
-            if (typeof obj[funcKey] === 'function'){
-                const funcInterseptor = new Interceptor(obj[funcKey], funcKey, printCallback);
-                obj[funcKey] = funcInterseptor.getInterceptor();
+            if (typeof obj[funcName] === 'function'){
+                const funcInterseptor = new Interceptor(obj[funcName], funcName, printCallback);
+                obj[funcName] = funcInterseptor.getInterceptor();
             }
         });
 
