@@ -2,7 +2,7 @@
   "name": "aspectlee",
   "version": "1.0.0",
   "description": "Aspect Oriented Programming (AOP) for JavaScript",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "mini": "gulp compress",
@@ -17,8 +17,8 @@
     "url": "https://github.com/kfirm/aspectlee.git"
   },
   "keywords": [
-    "AOP",
-    "Aspect Oriented Programming",
+    "aop",
+    "aspect oriented programming",
     "aspect"
   ],
   "author": "Kfir Marouani <dev.kfir@gmail.com>",
