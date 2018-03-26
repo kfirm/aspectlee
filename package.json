@@ -2,7 +2,7 @@
   "name": "aspectlee",
   "version": "1.0.0",
   "description": "Aspect Oriented Programming (AOP) for JavaScript",
-  "main": "dist/inde.node.js",
+  "main": "dist/index.node.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "mini": "gulp compress",

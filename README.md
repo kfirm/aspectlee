@@ -11,10 +11,51 @@ npm install --save aspectlee
 Or for browser:
 
 ```angular2html
-<script src="unpk"></script>
+<script src="https://unpkg.com/aspectlee/dist/index.js"></script>
 ```
 
 # Usage
+
+# Node
+
+```angular2html
+var aop = require('aspectlee');
+
+function foo() {
+
+    console.log('foo created.');
+
+    this.bar = function (a, b, c) {
+        console.log('Running bar function...');
+        return 'Returned by bar';
+    }
+}
+
+var fooObj = new foo();
+
+aop.Aspectlee(fooObj);
+
+fooObj.bar('I','Am','Bar');
+
+``` 
+
+Or with custom print function:
+
+```angular2html
+
+aop.Aspectlee(fooObj, function(context){
+
+    if (context.state === aop.State.BEFORE){
+        console.log('Function ' + context.name + ' now running');
+    } else if (context.state === aop.State.AFTER){
+        console.log('Function ' + context.name + ' running ended with result ' + context.result );
+    }
+});
+
+```
+
+
+# ES6
 
 With default output print function:
 
@@ -94,4 +135,8 @@ Function bar running ended with result Returned by bar
 */
 
 ```
+
+# 
+
+
 
