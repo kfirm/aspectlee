@@ -1,5 +1,5 @@
-import Executor from "./executor.js";
-import {State} from "./state.js";
+import Executor from './executor.js';
+import {State} from './state.js';
 
 class Utils {
     stringifyArgs (args) {
