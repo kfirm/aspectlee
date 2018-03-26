@@ -10,6 +10,5 @@ export default {
         format: 'es'
     },
     plugins: [
-        uglify()
     ]
 }
