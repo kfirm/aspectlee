@@ -1,7 +1,8 @@
-import Interceptor from "./interceptor.js";
+import Interceptor from './interceptor.js';
+export {State} from './state.js'
 
 
-export default class Aspectlee {
+class AspectleeClass {
 
     constructor(obj, printCallback) {
 
@@ -17,3 +18,11 @@ export default class Aspectlee {
 
     }
 }
+
+
+export function Aspectlee(obj, printcb) {
+
+    return new AspectleeClass(obj,printcb);
+
+}
+

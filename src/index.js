@@ -1,3 +1,3 @@
-import Aspectlee from './aspectlee.js';
+import { Aspectlee, State } from './aspectlee.js';
 
-export { Aspectlee };
+export { Aspectlee, State };

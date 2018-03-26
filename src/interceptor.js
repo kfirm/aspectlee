@@ -1,4 +1,5 @@
 import Executor from "./executor.js";
+import {State} from "./state.js";
 
 class Utils {
     stringifyArgs (args) {
@@ -81,10 +82,10 @@ export default class Interceptor {
 
     printCallBack(funcDescription) {
         switch (funcDescription.state){
-            case Executor.STATES().BEFORE:
+            case State.BEFORE:
                 console.log(`Executing function '${funcDescription.name}' with parameters: ${funcDescription.params}.`);
                 break;
-            case Executor.STATES().AFTER:
+            case State.AFTER:
                 const result = funcDescription.result;
                 console.log(`Finished executing '${funcDescription.name}' with parameters: ${funcDescription.params}. Result: ${typeof result === 'object' ? JSON.stringify(result) : result}`);
                 break;

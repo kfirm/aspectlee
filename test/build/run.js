@@ -1,20 +1,33 @@
-import {Aspectlee} from '../../dist/index.js';
+import {Aspectlee, State} from '../../dist/index.js';
 
-export class TestModule {
+class foo {
     constructor() {
-        console.log('TestModule');
+        console.log('foo class created');
     }
 
-    test(params) {
-        console.log('Got params',params);
-        console.log('Returning general string....');
+    bar(a, b, c) {
 
-        return 'General string :)';
+        console.log('Running bar function...');
+        return 'Returned by bar';
     }
 }
 
-const testModule = new TestModule();
-const aspect = new Aspectlee(testModule);
+// With default print function
+const fooObj = new foo();
+
+Aspectlee(fooObj);
+fooObj.bar('I','Am','Bar');
 
 
-testModule.test("hello","there");
+// With custom print function
+const fooCustom = new foo();
+
+Aspectlee(fooCustom, context => {
+    if (context.state === State.BEFORE){
+        console.log(`Function ${context.name} now running`);
+    } else if (context.state === State.AFTER){
+        console.log(`Function ${context.name} running ended with result ${context.result}`);
+    }
+});
+
+fooCustom.bar('I','Am','Bar');

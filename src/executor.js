@@ -1,15 +1,12 @@
+import {State} from './state.js';
+
 export default class Executor {
 
     constructor(reference, name) {
         this.name = name;
         this.reference = reference;
 
-        this.STATES = {
-            BEFORE: 'BEFORE',
-            AFTER: 'AFTER'
-        };
-
-        this.setState(this.STATES.BEFORE);
+        this.setState(State.BEFORE);
     }
 
     getName() {
@@ -35,7 +32,7 @@ export default class Executor {
 
     setResult(result) {
         this.result = result;
-        this.setState(this.STATES.AFTER);
+        this.setState(State.AFTER);
     }
 
     getState() {
@@ -52,13 +49,6 @@ export default class Executor {
             state: this.getState(),
             params: this.getParams(),
             result: this.result
-        }
-    }
-
-    static STATES() {
-        return {
-            BEFORE: 'BEFORE',
-            AFTER: 'AFTER'
         }
     }
 

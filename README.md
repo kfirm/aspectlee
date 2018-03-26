@@ -16,11 +16,13 @@ Or for browser:
 
 # Usage
 
+With default output print function:
+
 ```angular2html
 
 import {Aspectlee} from 'aspectlee';
 
-export class foo {
+class foo {
     constructor() {
         console.log('foo class created');
     }
@@ -34,7 +36,9 @@ export class foo {
 
 
 const fooObj = new foo();
-const fooObjAspect = new Aspectlee(fooObj);
+
+Aspectlee(fooObj);
+
 foo.bar('I','Am','Bar');
 
 /*
@@ -49,3 +53,45 @@ Finished executing 'bar' with parameters: I,Am,Bar. Result: Returned by bar
 */
 
 ```
+
+With custom print function:
+
+```angular2html
+import {Aspectlee, State} from 'aspectlee';
+
+class foo {
+    constructor() {
+        console.log('foo class created');
+    }
+
+    bar(a, b, c) {
+        
+        console.log('Running bar function...');        
+        return 'Returned by bar';
+    }
+}
+
+
+const fooObj = new foo();
+
+Aspectlee(fooObj, context => {
+    if (context.state === State.BEFORE){
+        console.log(`Function ${context.name} now running`);
+    } else if (context.state === State.AFTER){
+        console.log(`Function ${context.name} running ended with result ${context.result}`);
+    }
+});
+
+foo.bar('I','Am','Bar');
+
+/* output:
+
+foo class created
+Function bar now running
+Running bar function...
+Function bar running ended with result Returned by bar
+
+*/
+
+```
+
