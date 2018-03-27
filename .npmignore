@@ -5,3 +5,7 @@ src/
 # IntelliJ Libs
 .idea
 .idea/
+
+# Files
+rollup.web.config.js
+rollup.node.config.js
