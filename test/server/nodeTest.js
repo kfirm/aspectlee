@@ -1,4 +1,5 @@
-var aop = require('../../dist/index.node.js');
+// var aop = require('../../dist/index.node.js');
+var aop = require('aspectlee');
 
 
 function foo() {

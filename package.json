@@ -1,6 +1,6 @@
 {
   "name": "aspectlee",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Aspect Oriented Programming (AOP) for JavaScript",
   "main": "dist/index.node.js",
   "scripts": {
@@ -26,6 +26,7 @@
   "homepage": "https://github.com/kfirm/aspectlee",
   "devDependencies": {
     "babel-cli": "^6.24.1",
+    "aspectlee": "^1.0.0",
     "rollup": "^0.56.5",
     "rollup-plugin-babel": "^3.0.3",
     "rollup-plugin-uglify": "^3.0.0"

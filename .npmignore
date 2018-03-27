@@ -1,3 +1,7 @@
 # Directories
 test/
 src/
+
+# IntelliJ Libs
+.idea
+.idea/
